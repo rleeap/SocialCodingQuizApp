@@ -16,6 +16,6 @@ def displayQuestion(questionText, answers, correctAnswerNumber):
 
 
 # example usage
-# displayQuestion("what is the first letter of the alphabet?", ["a", "b", "c", "d"], "a")
+# displayQuestion("what is the first letter of the alphabet?", ["a", "b", "c", "d"], 1)
 
 
