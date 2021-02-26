@@ -10,7 +10,7 @@ def displayQuestion(questionText, answers, correctAnswerNumber):
     for x in range (0, len(answers)):
         print(str(x + 1) + ". " + answers[x])
     userAnswer = input("My guess: ")
-    if (userAnswer == correctAnswerNumber):
+    if (userAnswer == str(correctAnswerNumber)):
         return 1 
     return 0
 
