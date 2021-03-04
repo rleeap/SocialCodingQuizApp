@@ -2,16 +2,13 @@ def startQuiz():
     while (True):
         print("Start Quiz")
         num_questions = howManyQuestions("samplequiz.txt") #count number of quesitons in the file.
-
         displayQuestion("samplequiz.txt") #display the question.
-
-        answers = [input() for i in range(num_questions)] #would be a list that contains user answers.
-
+        #would be a list that contains user answers.
+        answers = [input("Your answer for question {}:\n".format(i+1)) for i in range(num_questions)] 
         num_correct = checkAnswers("samplequiz.txt", answers) #check num of correct answers
-
         final_score = calculateScore(num_correct, num_questions) #calculate final score
         print("Your Final Score is: {}%".format(final_score)) 
-
+        #shows a comparison between your answer and the correct answer 
         compareAnswers("samplequiz.txt", answers)
         again = input("Restart? Y/N\n")
         if (again == "N" or again == "n"):
