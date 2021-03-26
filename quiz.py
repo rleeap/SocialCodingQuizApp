@@ -66,5 +66,9 @@ def checkAnswers(filename, answer_list):
 def calculateScore(correct, total_questions):
     return round(correct/total_questions * 100, 2)
 
+#It is the function to get the answer from the user.
+def getQuestions(answers, j):
+    answers.append(input("Your answer for question {}:\n".format(j+1)))
+
 
 startQuiz()
