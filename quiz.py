@@ -2,10 +2,10 @@ def startQuiz():
     while (True):
         print("Start Quiz")
         num_questions = howManyQuestions("samplequiz.txt") #count number of quesitons in the file.
-        displayQuestion("samplequiz.txt") #display the question.
-        #would be a list that contains user answers.
-        answers = [input("Your answer for question {}:\n".format(i+1)) for i in range(num_questions)] 
-        num_correct = checkAnswers("samplequiz.txt", answers) #check num of correct answers
+        answers = displayQuestion("samplequiz.txt") #display the question.
+        
+        
+        num_correct = checkAnswers("samplequiz.txt", answers) #check num of correct answersa
         final_score = calculateScore(num_correct, num_questions) #calculate final score
         print("Your Final Score is: {}%".format(final_score)) 
         #shows a comparison between your answer and the correct answer 
@@ -40,11 +40,18 @@ def howManyQuestions(filename):
 
 #Function that displays the question in the quiz file
 def displayQuestion(filename):
+    answers = []
+    j = 0
     fileObject = open(filename, 'r')
     num_questions = int(fileObject.readline())
     for i in range(num_questions*2):
         print(fileObject.readline())
+        #If i is odd number, it asks users to answer the question.
+        if (i % 2 == 1):
+            answers.append(input("Your answer for question {}:\n".format(j+1)))
+            j += 1
     fileObject.close()
+    return answers
 
 #Function to check the answers and returns the number of correct answer
 def checkAnswers(filename, answer_list):
