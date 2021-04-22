@@ -6,7 +6,7 @@ def checkAnswers(filename, answer_list):
         if correct_answers[i] == answer_list[i]:
             num_correct += 1
     return num_correct
-    
+
 #Function that takes in a quiz file and returns a list filled with the correct answers sequentially listed
 def getCorrectAnswers(filename):
     fileObject = open(filename, 'r')
@@ -33,39 +33,41 @@ def howManyQuestions(filename):
 
 #Function that displays the question in the quiz file
 def displayQuestion(filename):
+    answers = []
+    j = 0
     fileObject = open(filename, 'r')
     num_questions = int(fileObject.readline())
     for i in range(num_questions*2):
         print(fileObject.readline())
+        #If i is odd number, it asks users to answer the question.
+        if (i % 2 == 1):
+          answer = input("Your answer for question {}:\n".format(j+1))
+          #keep on asking user for answer if their answer is not A, B, C or D
+          while (answer != 'A' and answer != 'B' and answer != 'C' and answer != 'D'):
+            answer = input("Answer invalid. Please try again: \n")
+          answers.append(answer)
+          j += 1
     fileObject.close()
+    return answers
 
 #Returns the total percentage score
 def calculateScore(correct, total_questions):
     return round(correct/total_questions * 100, 2)
 
-def getUserAnswers(num_questions):
-    questions_left = num_questions
-    curr_question = 1
-    user_answers = []
-    while questions_left != 0:
-        answer = input("Enter answer for Q({}):\n".format(curr_question))
-        #keep on asking user for answer if their answer is not A, B, C or D
-        while (answer != 'A' and answer != 'B' and answer != 'C' and answer != 'D'):
-            answer = input("Answer invalid. Please try again: \n")
-        user_answers.append(answer)
-        curr_question += 1
-        questions_left -= 1
-    return user_answers
+
+#It is the function to get the answer from the user.
+def getQuestions(answers, j):
+    answers.append(input("Your answer for question {}:\n".format(j+1)))
 
 def startQuiz():
     while (True):
         print("Start Quiz")
 
         num_questions = howManyQuestions("samplequiz.txt") #count number of questions in the file.
-        displayQuestion("samplequiz.txt")
+        answers = displayQuestion("samplequiz.txt")
 
         #would be a list that contains user answers.
-        answers = getUserAnswers(num_questions)
+        #answers = getUserAnswers(num_questions)
         num_correct = checkAnswers("samplequiz.txt", answers) #check num of correct answers
 
         final_score = calculateScore(num_correct, num_questions) #calculate final score
